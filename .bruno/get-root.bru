@@ -1,0 +1,19 @@
+meta {
+  name: GET Swagger
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{BASE_URL}}
+  body: none
+  auth: none
+}
+
+tests {
+  const data = res.getBody();
+
+  test("should return success", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+}
