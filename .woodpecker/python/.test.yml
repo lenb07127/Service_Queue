@@ -1,0 +1,24 @@
+# Python test step for Woodpecker CI/CD
+
+labels:
+  platform: linux/amd64
+
+steps:
+  - name: test
+    image: astral/uv:python3.13-trixie-slim
+    # TODO: Add necessary environment variables below
+    # environment: 
+    #   variable:
+    #     from_secret: variable
+    commands:
+      - uv sync --frozen --cache-dir /.cache/uv --link-mode=copy
+      - export PATH=".venv/bin:$PATH"
+      - pytest
+    volumes:
+      - /tmp/.uv:/.cache/uv
+      
+when:
+  - branch: master
+    event:
+      - push
+      - manual

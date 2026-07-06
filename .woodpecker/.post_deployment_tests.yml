@@ -1,0 +1,18 @@
+steps:
+  - name: test
+    image: ghcr.io/usebruno/cli:3.5.1-alpine
+    environment:
+      BACKEND_URL: https://REPLACE-ME
+    commands:
+      - sleep 10
+      - cd .bruno 
+      - bru run --env dev
+      
+when:
+  - branch: main
+    event:
+      - push
+      - manual
+
+depends_on:
+  - deploy
